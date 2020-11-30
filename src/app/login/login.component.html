@@ -1,0 +1,36 @@
+<div class="container">
+    <h2 style="font-size:200%; text-align: center;"><strong>ONLINE EVENT MANAGEMENT</strong> </h2>
+    <form (submit)="onFormSubmit(personForm)" #personForm="ngForm">
+        <label for="exampleInputName1" style="font-size:150%;">UserName</label>
+        <input type="text" name="username" class="form-control" id="name" aria-describedby="nameHelp"
+            placeholder="Enter your UserName" style="font-size:120%;" ngModel #username="ngModel" required minlength="3"
+            maxlength="15" pattern="[a-zA-Z]*">
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger"
+            style="font-size:90%; color: red;">
+            <div *ngIf="username.errors.required"> UserName is required. </div>
+            <div *ngIf="username.errors.maxlength"> UserName must be at most 15 characters long. </div>
+            <div *ngIf="username.errors.pattern" class="help is-danger"> UserName should contains characters only.</div>
+        </div>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your detail with anyone else.</small>
+
+        <label for="exampleInputPassword1" style="font-size:150%;">Password</label>
+        <input type="password" name="password" class="form-control" id="exampleInputPassword1"
+            aria-describedby="nameHelp" placeholder="Enter your Password" style="font-size:120%;" ngModel
+            #password="ngModel" required minlength="3" maxlength="10" pattern="[a-zA-Z0-9]*">
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger"
+            style="font-size:90%; color: red;">
+            <div *ngIf="password.errors.required"> Password is required. </div>
+            <div *ngIf="password.errors.maxlength"> Password must be at most 10 characters long. </div>
+            <div *ngIf="password.errors.pattern" class="help is-danger"> Password should contains characters and numbers
+                only.</div>
+        </div>
+        <br>
+        <div style="text-align:center;">
+            <button type="submit" [disabled]="!personForm.valid" class="btn btn-outline-success"
+                style="font-size:150%; color: black;">LOGIN</button>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <!-- <button type="button" class="btn btn-outline-danger" (click)="onReset()"
+            style="font-size:150%; color: black;">RESET</button> -->
+        </div>
+    </form>
+</div>

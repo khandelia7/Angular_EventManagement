@@ -1,0 +1,144 @@
+<br>
+<div class="jumbotron">
+    <div style="text-align: center;">
+        <button (click)="OnPublish(true)" class="btn btn-warning" style="font-size:130%; color: black;">
+            PUBLISH</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button (click)="OnDraft(false)" class="btn btn-danger" style="font-size:130%; color: black;">
+            DRAFT</button>
+    </div>
+    <div style="text-align: left;">
+        <button (click)="OnPublish1(true)" class="btn btn-secondary" style="font-size:90%; color: black;">
+            DATE FILTER</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button (click)="OnDraft1(false)" class="btn btn-secondary" style="font-size:90%; color: black;">
+            DEPARTMENT FILTER</button>
+    </div>
+    <br>
+    <div *ngIf="isPass1;then date else department">
+    </div>
+    <ng-template #date>
+        <form (submit)="onFilterSubmit(filter)" #filter="ngForm">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input type="text" name="eventDate" class="form-control" id="exampleTextarea"
+                        aria-describedby="nameHelp" placeholder="Enter your Filter Date: dd/MM/yyyy"
+                        style="font-size:110%;" ngModel #eventDate="ngModel" required
+                        pattern="^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$" rows="2">
+                    <div *ngIf="eventDate.invalid && (eventDate.dirty || eventDate.touched)" class="alert alert-danger"
+                        style="font-size:90%; color: red;">
+                        <div *ngIf="eventDate.errors.required"> Event Date is required. </div>
+                        <div *ngIf="eventDate.errors.pattern" class="help is-danger"> Format Date dd/MM/yyyy allowed.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <br>
+                    <div style="text-align:center;">
+                        <button type="submit" [disabled]="!filter.valid" class="btn btn-outline-info"
+                            style="font-size:100%; color: black;">Date Filter</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template #department>
+        <h2 style="font-size:100%; text-align: left;">DEPARTMENT FILTER<strong></strong> </h2>
+        <form (submit)="onFilterSubmit(filter)" #filter="ngForm">
+            <div class="row">
+                <div class="col-sm-3">
+                    <select class="form-control" name="eventDate" id="exampleSelect1" ngModel #eventDate="ngModel">
+                        <option *ngFor="let p of post">{{p.department}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <br>
+                    <div style="text-align:center;">
+                        <button type="submit" [disabled]="!filter.valid" class="btn btn-outline-info"
+                            style="font-size:100%; color: black;">Department Filter</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+    <br>
+    <div style="text-align: right; width: auto;">
+        <button (click)="onFINAL()" class="btn btn-success" style="font-size:150%; color: black;">REFRESH</button>
+    </div>
+    <div class="alert alert-dismissible alert-info" style="width: 20%;">
+        <strong>FILTER FIELD ARE:</strong> <br><br>
+        <strong>Status:</strong>
+        <p style="color: red;">{{status}}</p>
+        <strong>Filter On:</strong>
+        <p style="color: red;">{{filterBy}}</p>
+        <strong>Value:</strong>
+        <pre style="color: red;">{{filterOn}}</pre>
+    </div>
+    <br>
+    <div *ngIf="isPass;then publish else draft">
+    </div>
+    <ng-template #publish>
+        <h2 style="font-size:150%; text-align: left;"><strong>PUBLISH EVENT</strong> </h2>
+        <br>
+        <div class=row>
+            <div class="col-sm-3" *ngFor="let e of event">
+                <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                    <div class="card-header" style="font-size:130%; text-align: center;">
+                        <b>{{e.eventName}}</b></div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Count of Panel: {{e.countOfPanel}}<br>
+                            Required Count: {{e.entryCount}}<br><br>
+                            Event Date: {{e.eventDate}}<br>
+                            Escalation Date: {{e.escalationTime}}<br><br>
+                            Skill Set: {{e.skillSet}}
+                        </p>
+                        <div>
+                            <button style="text-align: left;"  class="btn btn-outline-danger"
+                                style="font-size:100%; color: black;">
+                                CLOSE</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <button style="text-align: right;" (click)="Delete(e.eventID)" class="btn btn-outline-primary"
+                                style="font-size:100%; color: black;">
+                                DELETE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #draft>
+        <h2 style="font-size:150%; text-align: left;"><strong>DRAFT EVENT</strong> </h2>
+        <br>
+        <div class=row>
+            <div class="col-sm-3" *ngFor="let e of event">
+                <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                    <div class="card-header" style="font-size:130%; text-align: center;">
+                        <b>{{e.eventName}}</b></div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Count of Panel: {{e.countOfPanel}}<br>
+                            Required Count: {{e.entryCount}}<br><br>
+                            Event Date: {{e.eventDate}}<br>
+                            Escalation Date: {{e.escalationTime}}<br><br>
+                            Skill Set: {{e.skillSet}}
+                        </p>
+                        <div>
+                            <button style="text-align: right;" (click)="Delete(e.eventID)" class="btn btn-outline-primary"
+                                style="font-size:100%; color: black;">
+                                DELETE</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <button style="text-align: left;"  class="btn btn-outline-danger"
+                                style="font-size:100%; color: black;">
+                                PUBLISH</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

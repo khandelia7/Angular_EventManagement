@@ -1,0 +1,93 @@
+<div class="alert alert-dismissible alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <div style="text-align: center;">
+        <strong>User Employee Details </strong>
+    </div>
+    <h5>Username: <b style="font-size: 20px; color: black;">{{employee1.username}}</b> </h5>
+    <h5>Department: <b style="font-size: 15px; color: black;">{{employee1.post.department}}</b> </h5>
+    <h5>Designation: <b style="font-size: 15px; color: black;">{{employee1.post.designation}}</b> </h5>
+    <div style="text-align: right;">
+        <button [routerLink]="['/login' ]" class="btn btn-success disabled"
+            style="font-size:130%; color: black;">LOGOUT</button>
+
+    </div>
+</div>
+
+<!-- <div class="alert alert-dismissible alert-primary" style="width: 300px;">
+    <div style="text-align: center;">
+        <strong>DEMO</strong>
+    </div>
+    <div class="row">
+        <form (submit)="onFormSubmit(personForm)" #personForm="ngForm">
+            <div class="column-sm-4">
+                <label for="exampleInputName1" style="font-size:120%;">UserName</label>
+                <input type="text" name="username" class="form-control" id="name" aria-describedby="nameHelp"
+                    placeholder="Enter your UserName" style="font-size:100%;" ngModel #username="ngModel" required
+                    minlength="3" maxlength="15" pattern="[a-zA-Z]*">
+                <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger"
+                    style="font-size:90%; color: red;">
+                    <div *ngIf="username.errors.required"> UserName is required. </div>
+                    <div *ngIf="username.errors.maxlength"> UserName must be at most 15 characters long. </div>
+                    <div *ngIf="username.errors.pattern" class="help is-danger"> UserName should contains characters
+                        only.
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="column-sm-4">
+                <div style="text-align:center;">
+                    <button type="submit" [disabled]="!personForm.valid" class="btn btn-outline-success"
+                        style="font-size:120%; color: black;">LOGIN</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> -->
+
+<div class="card border-danger">
+    <br>
+    <div class="container-fluid" style="width: 100%;">
+        <div style="font-size:150%;">Event Enrolled:</div>
+        <table class="table table-hover" style="width: 700px;">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Event Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let s of stat">
+                    <th scope="row" style="font-size:110%; color: black;">{{s.date}}</th>
+                    <td style="font-size:130%; color: black;">{{s.event.event_name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<br>
+
+<div class="jumbotron">
+    <h1 class="display-6">EVENTS</h1>
+    <div class="row">
+        <div class="col-md-4" *ngFor="let e of event">
+            <div class="card border-dark mb-3" style="max-width: 20rem;">
+                <div class="card-header">
+                    <h3>{{e.event_name}}</h3>
+                </div>
+                <div class="card-body">
+                    <h1>{{e.eventID}}</h1>
+                    <h6 class="card-title">Skill Set Required: {{e.skillSet}}</h6>
+                    <h6 class="card-title">Event Date: {{e.eventDate}}</h6>
+                    <h6 class="card-title">Remaining seats: {{e.countOfPanel - e.entryCount}}</h6>
+                    <p class="card-text"></p>
+                </div>
+                <div style="text-align: right;">
+                    <button (click)="onFormSubmit1(e.eventID)" class="btn btn-outline-primary"
+                        style="font-size:130%; color: black;">ENROLL</button>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>

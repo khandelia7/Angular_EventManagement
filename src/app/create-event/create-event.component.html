@@ -1,0 +1,123 @@
+<br>
+<h2 style="font-size:200%; text-align: center;"><strong>CREATE EVENT</strong> </h2>
+<div class="jumbotron">
+    <form (submit)="onDepartmentSubmit(DepartmentForm)" #DepartmentForm="ngForm">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="exampleSelect1">Department</label>
+                    <select class="form-control" name="department" id="exampleSelect1" ngModel #department="ngModel">
+                        <option *ngFor="let p of post">{{p.department}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <br>
+                <div style="text-align:center;">
+                    <button type="submit" [disabled]="!DepartmentForm.valid" class="btn btn-outline-info"
+                        style="font-size:100%; color: black;">Department</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form (submit)="onFormSubmit(personForm)" #personForm="ngForm">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="exampleSelect1">Designation</label>
+                    <select class="form-control" name="department" id="exampleSelect1" ngModel #designation="ngModel">
+                        <option *ngFor="let p of postselected">{{p.designation}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <label for="exampleInputName1" style="font-size:105%;">Event Name: </label>
+        <input type="text" name="EventName" class="form-control" id="EventName" aria-describedby="nameHelp"
+            placeholder="Enter your Event Name" style="font-size:110%;" ngModel #EventName="ngModel" required
+            minlength="5" maxlength="15" pattern="[a-zA-Z0-9]*">
+        <div *ngIf="EventName.invalid && (EventName.dirty || EventName.touched)" class="alert alert-danger"
+            style="font-size:90%; color: red;">
+            <div *ngIf="EventName.errors.required"> Event Name is required. </div>
+            <div *ngIf="EventName.errors.minlength"> Event Name atleast 5 characters. </div>
+            <div *ngIf="EventName.errors.maxlength"> Event Name must be at most 20 characters long. </div>
+            <div *ngIf="EventName.errors.pattern" class="help is-danger"> Event Name should contains characters only.
+            </div>
+        </div>
+        <br>
+
+        <label for="exampleInputName1" style="font-size:105%;">Skill Set: </label>
+        <textarea type="text" name="SkillSet" class="form-control" id="exampleTextarea" rows="3"
+            aria-describedby="nameHelp" placeholder="Enter your Skill Set" style="font-size:110%;" ngModel
+            #SkillSet="ngModel" required minlength="10" maxlength="40" pattern="[a-zA-Z0-9 ]*" rows="2"></textarea>
+        <div *ngIf="SkillSet.invalid && (SkillSet.dirty || SkillSet.touched)" class="alert alert-danger"
+            style="font-size:90%; color: red;">
+            <div *ngIf="SkillSet.errors.required"> Skill Set is required. </div>
+            <div *ngIf="SkillSet.errors.minlength"> Skill Set atleast 10 characters. </div>
+            <div *ngIf="SkillSet.errors.maxlength"> Skill Set must be at most 40 characters long. </div>
+            <div *ngIf="SkillSet.errors.pattern" class="help is-danger"> Skill Set should contains characters only.
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label for="exampleInputName1" style="font-size:105%;">Count Of Panel: </label>
+                <input type="text" name="countOfPanel" class="form-control" id="exampleTextarea" rows="3"
+                    aria-describedby="nameHelp" placeholder="Enter your Count Of Panel" style="font-size:110%;" ngModel
+                    #countOfPanel="ngModel" required minlength="1" maxlength="1" pattern="[1-9]*" rows="2">
+                <div *ngIf="countOfPanel.invalid && (countOfPanel.dirty || countOfPanel.touched)"
+                    class="alert alert-danger" style="font-size:90%; color: red;">
+                    <div *ngIf="countOfPanel.errors.required"> Count Of Panel is required. </div>
+                    <div *ngIf="countOfPanel.errors.minlength"> Count Of Panel must be single digit and not zero (0)
+                    </div>
+                    <div *ngIf="countOfPanel.errors.pattern" class="help is-danger"> Count Of Panel should single digit
+                        only.</div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label for="exampleInputName1" style="font-size:105%;">Event date: </label>
+                <input type="text" name="eventDate" class="form-control" id="exampleTextarea"
+                    aria-describedby="nameHelp" placeholder="Enter your Event Date: dd/MM/yyyy" style="font-size:110%;"
+                    ngModel #eventDate="ngModel" required pattern="^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$"
+                    rows="2">
+                <div *ngIf="eventDate.invalid && (eventDate.dirty || eventDate.touched)" class="alert alert-danger"
+                    style="font-size:90%; color: red;">
+                    <div *ngIf="eventDate.errors.required"> Event Date is required. </div>
+                    <div *ngIf="eventDate.errors.pattern" class="help is-danger"> Format Date dd/MM/yyyy allowed. </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label for="exampleInputName1" style="font-size:105%;">Escalation Date: </label>
+                <input type="text" name="escalationTime" class="form-control" id="exampleTextarea"
+                    aria-describedby="nameHelp" placeholder="Enter your Escalation Date: dd/MM/yyyy"
+                    style="font-size:110%;" ngModel #escalationTime="ngModel" required
+                    pattern="^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$" rows="2">
+                <div *ngIf="escalationTime.invalid && (escalationTime.dirty || escalationTime.touched)"
+                    class="alert alert-danger" style="font-size:90%; color: red;">
+                    <div *ngIf="escalationTime.errors.required"> Escalation Date is required. </div>
+                    <div *ngIf="escalationTime.errors.pattern" class="help is-danger"> Format Date dd/MM/yyyy allowed.
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="exampleSelect1">Publish/Draft</label>
+                    <select class="form-control" name="status" id="status" ngModel #status="ngModel"
+                        placeholder="Publish/Draf" required>
+                        <option>publish</option>
+                        <option>draft</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <br>
+        
+        <br>
+        <div style="text-align:center;">
+            <button type="submit" [disabled]="!personForm.valid" class="btn btn-outline-success"
+                style="font-size:150%; color: black;">Create Event</button>
+        </div>
+    </form>
+</div>

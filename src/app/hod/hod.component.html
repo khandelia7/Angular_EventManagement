@@ -1,0 +1,86 @@
+<div class="alert alert-dismissible alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <div style="text-align: center;">
+        <strong>User Employee Details </strong>
+    </div>
+    <h5>Username: <b style="font-size: 20px; color: black;">{{employee1.username}}</b> </h5>
+    <h5>Department: <b style="font-size: 15px; color: black;">{{employee1.post.department}}</b> </h5>
+    <h5>Designation: <b style="font-size: 15px; color: black;">{{employee1.post.designation}}</b> </h5>
+    <div style="text-align: right;">
+        <button [routerLink]="['/login' ]" class="btn btn-success disabled"
+            style="font-size:130%; color: black;">LOGOUT</button>
+    </div>
+</div>
+<div class="card border-danger">
+    <br>
+    <div class="container-fluid" style="width: 100%;">
+        <div style="font-size:150%;">Event Pending: </div>
+        <table class="table table-hover" style="width: 700px;">
+            <thead>
+                <tr>
+                    <th scope="col">Event Name</th>
+                    <th scope="col">Remark</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let e of event">
+                    <th scope="row" style="font-size:110%; color: black;">{{e.event_name}}</th>
+                    <td>
+                        <button (click)="statusfunc(true, e)" class="btn btn-outline-primary"
+                            style="font-size:130%; color: black;">ENROLL</button>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br>
+<br>
+<div *ngIf="isPass;then goodMsg else badMsg">
+</div>
+<ng-template #goodMsg>
+    <div class="jumbotron">
+        <h2 class="display-6"><b>Assign Event</b></h2>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group" style="width: 500px;">
+                    <label for="exampleTextarea">
+                        <h5>Detail of Events:</h5>
+                        <h4>{{eventEdit.eventID}}, {{eventEdit.event_name}}</h4>
+                    </label>
+                    <textarea class="form-control" id="exampleTextarea" rows="6" style="width: 400px;">
+                        EventID: {{eventEdit.eventID}}
+                        Event Name: {{eventEdit.event_name}},
+                        Panel Required: {{eventEdit.countOfPanel}},
+                        Event Date: {{eventEdit.event_date}},
+                        Event Escalation Date: {{eventEdit.escalationTime}}
+                        Event SkillSet: {{eventEdit.skill_set}}
+                    </textarea>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h5>{{eventEdit.countOfPanel - eventEdit.entryCount}} Employee To be Assigned.</h5>
+                <div>
+                    <form [formGroup]="myForm">
+                        <ng-multiselect-dropdown name="city" [placeholder]="'Select Employee'"
+                            [settings]="dropdownSettings" [data]="cities" formControlName="city" [disabled]="disabled"
+                            (onSelect)="onItemSelect($event)">
+                        </ng-multiselect-dropdown>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div style="text-align:center;">
+            <button type="submit" (click)="enroll(eventEdit.eventID, (eventEdit.countOfPanel - eventEdit.entryCount))"
+                class="btn btn-outline-success" style="font-size:150%; color: black;">UPDATE</button>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <button type="button" (click)="onReset()" class="btn btn-outline-danger"
+                style="font-size:150%; color: black;">RESET</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #badMsg>
+</ng-template>

@@ -1,0 +1,30 @@
+<div class="alert alert-dismissible alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <div style="text-align: center;">
+        <strong>User Employee Details </strong>
+    </div>
+    <h5>Username: <b style="font-size: 20px; color: black;">{{employee1.username}}</b> </h5>
+    <h5>Department: <b style="font-size: 15px; color: black;">{{employee1.post.department}}</b> </h5>
+    <h5>Designation: <b style="font-size: 15px; color: black;">{{employee1.post.designation}}</b> </h5>
+    <div style="text-align: right;">
+        <button [routerLink]="['/login' ]" class="btn btn-success disabled"
+            style="font-size:130%; color: black;">LOGOUT</button>
+    </div>
+</div>
+
+<div style="text-align: center;">
+    <button (click)="Page(true)" class="btn btn-outline-warning" style="font-size:130%; color: black;">CREATE
+        Event</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <button (click)="Page(false)" class="btn btn-outline-success" style="font-size:130%; color: black;">FILTER
+        Event</button>
+</div>
+
+<div *ngIf="isPass;then create else filter">
+</div>
+<ng-template #create>
+    <app-create-event></app-create-event>
+</ng-template>
+<ng-template #filter>
+    <app-filter-event></app-filter-event>
+</ng-template>
